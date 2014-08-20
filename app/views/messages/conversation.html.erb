@@ -1,0 +1,6 @@
+<% @messages.each do |m| %>
+  <div class="row">
+  <%= time_ago_in_words(m.created_at) %>
+  <%= m.body.html_safe %>
+  </div>
+<% end %>

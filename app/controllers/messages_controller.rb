@@ -6,10 +6,17 @@ class MessagesController < ApplicationController
   # Inbox
   def index
     @user = current_user
-    @messages = @user.messages_received.newest_first.limit(10)
+    @users = @user.messages_received.newest_first.map(&:from_user_id).uniq
 
     @title = 'Inbox'
     @page_class = 'inbox'
+  end
+
+  def conversation
+    @from = Message.where("from_user_id = ? AND to_user_id = ?", current_user.id, params[:id])
+    @to = Message.where("from_user_id = ? AND to_user_id = ?", params[:id], current_user.id)
+
+    @messages = (@from + @to).sort_by &:created_at
   end
 
   # GET /messages/1
