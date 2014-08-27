@@ -6,7 +6,13 @@ class MessagesController < ApplicationController
   # Inbox
   def index
     @user = current_user
-    @users = @user.messages_received.newest_first.map(&:from_user_id).uniq
+    @users = User.where(id: @user.messages_received.newest_first.map(&:from_user_id).uniq)
+    @convos = {}
+    @users.each do |u|
+      latest = Message.where("from_user_id = ? AND to_user_id = ?", u.id, current_user.id).newest_first.first
+      @convos[u.id] = {user: u, latest: latest}
+    end
+    @convos = @convos.sort_by { |k, v| v[:latest].created_at }.reverse
 
     @title = 'Inbox'
     @page_class = 'inbox'
@@ -17,6 +23,8 @@ class MessagesController < ApplicationController
     @to = Message.where("from_user_id = ? AND to_user_id = ?", params[:id], current_user.id)
 
     @messages = (@from + @to).sort_by &:created_at
+
+    @message = Message.new
   end
 
   # GET /messages/1

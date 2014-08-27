@@ -1,6 +1,17 @@
-<% @messages.each do |m| %>
-  <div class="row">
-  <%= time_ago_in_words(m.created_at) %>
-  <%= m.body.html_safe %>
-  </div>
-<% end %>
+<% @user = User.find(params[:id]) %>
+
+<div class="sidebar col-md-3">
+  <%= render :partial => "shared/full_user" %>
+</div>
+
+<div class="clearfix col-md-9">
+  <% @messages.each do |m| %>
+    <div class="row">
+    <%= small_avatar_of(@user) %>
+    <%= time_ago_in_words(m.created_at) %>
+    <%= m.body.html_safe %>
+    </div>
+  <% end %>
+
+  <%= render 'form' %>
+</div>

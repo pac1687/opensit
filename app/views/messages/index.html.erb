@@ -11,17 +11,16 @@
   <% else %>
 
     <table class="table msg-overview">
-      <% @users.each do |id| %>
-        <% if User.where(id: id).present? %>
-          <tr>
-
-            <td class="msg-content">
-              <a href="<%= conversation_path(id) %>" class="clickable-row">
-              <div class="msg-username"><%= id %></div>
-              </a>
-            </td>
-          </tr>
-        <% end %>
+      <% @convos.each do |k, v| %>
+        <tr>
+          <td class="msg-content">
+            <a href="<%= conversation_path(v[:user].id) %>" class="clickable-row">
+            <div class="msg-username"><%= v[:user].username %></div>
+            <div><%= v[:latest].body.truncate(100) %></div>
+            <div><%= v[:latest].created_at %></div>
+            </a>
+          </td>
+        </tr>
       <% end %>
     </table>
 
