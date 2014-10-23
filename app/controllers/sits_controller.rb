@@ -6,10 +6,7 @@ class SitsController < ApplicationController
     @sit = Sit.find(params[:id])
     @latest = @sit.user.latest_sit(current_user)
 
-    # For completely private sits
-    if @sit.private == true
-      redirect_to me_path if current_user.nil? || (@sit.user_id != current_user.id)
-    end
+    redirect_to me_path if !@sit.viewable?(current_user)
 
     # Views, not very accurate as any guest visit increments by one
     if current_user

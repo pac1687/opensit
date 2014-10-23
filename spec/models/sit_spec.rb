@@ -4,6 +4,16 @@ describe Sit do
   let(:buddha) { create(:buddha) }
   let(:ananda) { create(:ananda) }
 
+  describe 'privacy settings' do
+  	it 'is not viewable if private'
+		# Limited user viewing
+  	it 'viewable by whitelisted user'
+  	it 'not viewable by non-whitelisted user'
+  	# Only people I follow
+  	it 'viewable by someone I follow'
+  	it 'not viewable by someone I do not follow'
+  end
+
   describe 'creating a user' do
 	  it 'sets the streak to 0' do
 	    user = create(:user)

@@ -135,7 +135,27 @@ class Sit < ActiveRecord::Base
     !self.likes.empty?
   end
 
+  ##
+  # PRIVACY
+  ##
+
+  def viewable?(current_user)
+    if false #user.privacy_setting
+      if user.privacy_setting == 'followers'
+
+      elsif user.privacy_setting == 'custom_group'
+
+      end
+    else
+      # For completely private sits (individual or as part of private journal)
+      return false if private && !mine?(current_user)
+
+      # Ok, let em through
+      return true
+    end
+  end
 end
+
 # == Schema Information
 #
 # Table name: sits
