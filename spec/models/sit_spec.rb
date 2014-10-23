@@ -7,28 +7,44 @@ describe Sit do
   describe 'privacy settings' do
 
   	it 'is not viewable if private'
-		# Limited user viewing
-  	it 'viewable by whitelisted user'
-  	it 'not viewable by non-whitelisted user'
+
+		# Selected users only
+		context 'selected_users' do
+			before do
+				@dan = create(
+					:user,
+					privacy_setting: 'selected_users',
+					authorised_users: [buddha.id]
+				)
+				@sit = create(:sit, user: @dan)
+  		end
+
+	  	it 'viewable by whitelisted user' do
+	  		expect(@sit.viewable? buddha).to eq true
+	  	end
+
+	  	it 'not viewable by non-whitelisted user' do
+	  		expect(@sit.viewable? ananda).to eq false
+	  	end
+	  end
 
   	# Only people I follow
   	context 'following' do
   		before do
 				@dan = create(:user, privacy_setting: 'following')
 				@sit = create(:sit, user: @dan)
-				@buddha = create(:user)
   		end
 
 	  	it 'viewable by someone I follow' do
 	  		@dan.follow! @buddha
-	  		expect(@dan.following? @buddha).to eq true
-	  		expect(@sit.viewable? @buddha).to eq true
+	  		expect(@dan.following? buddha).to eq true
+	  		expect(@sit.viewable? buddha).to eq true
 	  		expect(@sit.viewable? ananda).to eq false
 	  	end
 
 	  	it 'not viewable by someone I do not follow' do
-	  		expect(@dan.following? @buddha).to eq false
-	  		expect(@sit.viewable? @buddha).to eq false
+	  		expect(@dan.following? buddha).to eq false
+	  		expect(@sit.viewable? buddha).to eq false
 	  	end
 	  end
   end

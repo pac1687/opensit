@@ -140,16 +140,19 @@ class Sit < ActiveRecord::Base
   ##
 
   def viewable?(current_user)
+    return true if mine?(current_user)
+
     if !user.privacy_setting.blank?
       if user.privacy_setting == 'following'
         return true if user.followed_user_ids.include? current_user.id
         return false
-      elsif user.privacy_setting == 'custom_group'
-
+      elsif user.privacy_setting == 'selected_users'
+        return true if user.authorised_users.include? current_user.id
+        return false
       end
     else
       # For completely private sits (individual or as part of private journal)
-      return false if private && !mine?(current_user)
+      return false if private
 
       # Ok, let em through
       return true

@@ -34,6 +34,9 @@ class User < ActiveRecord::Base
   validates :username, no_empty_spaces: true
   # validates :username, unique_page_name: true
 
+  # Authorised users, for 'selected_users' privacy option
+  serialize :authorised_users
+
   # Textacular: search these columns only
   extend Searchable(:username, :first_name, :last_name, :city, :country)
 
