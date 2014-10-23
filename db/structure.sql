@@ -3,6 +3,7 @@
 --
 
 SET statement_timeout = 0;
+SET lock_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SET check_function_bodies = false;
@@ -548,7 +549,9 @@ CREATE TABLE users (
     private_stream boolean DEFAULT false,
     reset_password_sent_at timestamp without time zone,
     sits_count integer DEFAULT 0,
-    streak integer DEFAULT 0
+    streak integer DEFAULT 0,
+    privacy_setting character varying(255) DEFAULT ''::character varying,
+    authorised_users character varying(255) DEFAULT ''::character varying
 );
 
 
@@ -1012,3 +1015,5 @@ INSERT INTO schema_migrations (version) VALUES ('20140218235031');
 INSERT INTO schema_migrations (version) VALUES ('20140328194519');
 
 INSERT INTO schema_migrations (version) VALUES ('20140625193718');
+
+INSERT INTO schema_migrations (version) VALUES ('20141023191934');

@@ -140,9 +140,10 @@ class Sit < ActiveRecord::Base
   ##
 
   def viewable?(current_user)
-    if false #user.privacy_setting
-      if user.privacy_setting == 'followers'
-
+    if !user.privacy_setting.blank?
+      if user.privacy_setting == 'following'
+        return true if user.followed_user_ids.include? current_user.id
+        return false
       elsif user.privacy_setting == 'custom_group'
 
       end
