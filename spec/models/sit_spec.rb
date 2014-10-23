@@ -19,6 +19,10 @@ describe Sit do
 				@sit = create(:sit, user: @dan)
   		end
 
+  		it 'viewable by owner' do
+	  		expect(@sit.viewable? @dan).to eq true
+  		end
+
 	  	it 'viewable by whitelisted user' do
 	  		expect(@sit.viewable? buddha).to eq true
 	  	end
@@ -35,11 +39,14 @@ describe Sit do
 				@sit = create(:sit, user: @dan)
   		end
 
+  		it 'viewable by owner' do
+	  		expect(@sit.viewable? @dan).to eq true
+  		end
+
 	  	it 'viewable by someone I follow' do
-	  		@dan.follow! @buddha
+	  		@dan.follow! buddha
 	  		expect(@dan.following? buddha).to eq true
 	  		expect(@sit.viewable? buddha).to eq true
-	  		expect(@sit.viewable? ananda).to eq false
 	  	end
 
 	  	it 'not viewable by someone I do not follow' do
