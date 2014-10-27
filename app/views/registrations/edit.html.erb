@@ -50,6 +50,8 @@
     <%= form_element(f, :practice, 'user', "What do you practice?", 8, { input_html: { rows: 7, class: 'rich-textarea' }, hint: 'What\'s your routine in an average sit?', label: false }) %>
 
     <%= form_element(f, :default_sit_length, 'user', "Default sit length", 1, { label: false }) %>
+
+    <%= form_element(f, :authorised_users, 'message', "To", 4, { label: false, collection: User.all, label_method: 'username', input_html: { multiple: true, data: { placeholder: 'Choose a user'}, class: 'chzn-select' } }) %>
   </div>
 
   <div class="update-details">

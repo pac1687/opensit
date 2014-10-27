@@ -52,7 +52,8 @@ $(document).ready(function(){
     autoclose: true,
   });
 
-  $(".chzn-select").chosen({max_selected_options: 1});
+  // New private message
+  $("#message_to_user_id").chosen({max_selected_options: 1});
 
   // FAVOURITES / add and remove
   $('#favourite_button').on('click', '.toggle-favourite', function(e) {
@@ -73,6 +74,9 @@ $(document).ready(function(){
     e.preventDefault();
     $('.full-profile').slideToggle();
   })
+
+  // EDIT PROFILE / Authorised users
+  $("#user_authorised_users").chosen();
 
   // LIKES / a sit
   $('#like_button').on('click', '.toggle-like', function(e) {
