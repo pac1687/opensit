@@ -3,6 +3,10 @@ Opensit::Application.routes.draw do
   root :to => "pages#front"
 
   devise_for :users, :controllers => { :registrations => "registrations", :sessions => "sessions" }
+  devise_scope :user do
+    get '/users/profile' => 'registrations#profile', as: :edit_user_profile
+  end
+
   get 'me' => "users#me"
   get '/u/:username' => "users#show", :as => :user
   get '/u/:username/following' => "users#following", :as => :following_user
@@ -13,9 +17,11 @@ Opensit::Application.routes.draw do
   get '/notifications' => "notifications#index"
   get '/welcome' => "users#welcome"
   get '/search' => "search#main"
+
   get 'about' => "pages#about"
   get 'contribute' => "pages#contribute"
   get 'contact' => "pages#contact"
+
   get 'explore' => "pages#explore"
   get 'explore/tags' => "pages#tag_cloud", :as => :explore_tags
   get 'explore/comments' => "pages#new_comments", :as => :explore_comments
@@ -23,6 +29,7 @@ Opensit::Application.routes.draw do
   get 'explore/users/new' => "pages#new_users", :as => :explore_new_users
   get 'explore/users/active' => "pages#active_users", :as => :explore_active_users
   get 'explore/users/new/sitters' => "pages#new_sitters", :as => :explore_new_sitters
+
   get 'global-feed' => "users#feed", :defaults => { :format => 'atom', :scope => 'global' }
 
   resources :sits do

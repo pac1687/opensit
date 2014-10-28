@@ -10,10 +10,18 @@ class RegistrationsController < Devise::RegistrationsController
     (session[:"user.return_to"].nil?) ? "/" : session[:"user.return_to"].to_s
   end
 
+  # GET /users/edit
 	def edit
-		@title = 'Edit profile'
-		@page_class = 'edit-profile'
+		@title = 'Account settings'
+		@page_class = 'account-settings'
 	end
+
+  # GET /users/profile
+  def profile
+    @user = current_user
+    @title = 'Edit profile'
+    @page_class = 'edit-profile'
+  end
 
   def update
     super

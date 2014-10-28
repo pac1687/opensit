@@ -1,64 +1,19 @@
-<h1>My Profile</h1>
+<h1>Account Settings</h1>
 <hr>
 <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :multipart => :true, :method => :put , :class => 'form-horizontal'}) do |f| %>
   <%= devise_error_messages! %>
 
-  <div class='form-group'>
-    <label class='col-lg-2 control-label' for='user_avatar'>Profile picture</label>
-    <div class="col-lg-10">
-      <div class="form-group string optional user_first_name">
-      <div class="col-lg-12"><%= large_avatar_of(@user) %>
-      <%= f.file_field :avatar %>
-      <p class="help-block"> To change your picture, select a new picture through <em>Choose File</em>, and then click Update below.</p></div>
-    </div></div>
-  </div>
-
-  <div class="update-details">
-    <%= f.submit "Update", :class => 'btn btn-lg btn-primary' %>
-  </div>
-
-<h1>The Basics</h1>
-<hr>
-  <%= form_element(f, :first_name, 'user', "First Name", 3, { label: false }) %>
-
-  <%= form_element(f, :last_name, 'user', "Last Name", 3, { label: false }) %>
-
-  <%= form_element(f, :dob, 'user', "Date of Birth", 3, { as: 'date', label: false, start_year: Date.today.year - 90, end_year: Date.today.year - 12, order: [:day, :month, :year], include_blank: true, input_html: { :class => 'col-lg-1' }} )%>
-
-  <%= form_element(f, :gender, 'user', "Gender", 3, { collection: [['Male', 0], ['Female', 1], ['Transgender', 2]], as: :radio_buttons, item_wrapper_class: 'inline', label: false }) %>
-
-  <%= form_element(f, :city, 'user', "City", 3, { label: false }) %>
-
-  <%= form_element(f, :country, 'user', "Country", 3, { label: false }) %>
-
-  <%= form_element(f, :website, 'user', "Website", 3, { label: false }) %>
-
-  <div class="update-details">
-    <%= f.submit "Update", :class => 'btn btn-lg btn-primary' %>
-  </div>
-
-  <div class="contemplative-profile">
-    <h1>Contemplative profile</h1>
-    <hr>
-
-    <%= form_element(f, :who, 'user', "Who are you?", 8, { input_html: { rows: 3 }, hint: 'Tell us a little about yourself in one paragraph.', label: false }) %>
-
-    <%= form_element(f, :style, 'user', "Meditation style", 3, { hint: 'Zen, TM, Vipassana etc.', label: false }) %>
-
-    <%= form_element(f, :why, 'user', "Why do you practice?", 8, { input_html: { rows: 7, class: 'rich-textarea' }, hint: 'What inspires you to meditate?', label: false }) %>
-
-    <%= form_element(f, :practice, 'user', "What do you practice?", 8, { input_html: { rows: 7, class: 'rich-textarea' }, hint: 'What\'s your routine in an average sit?', label: false }) %>
-
     <%= form_element(f, :default_sit_length, 'user', "Default sit length", 1, { label: false }) %>
 
     <%= form_element(f, :authorised_users, 'message', "To", 4, { label: false, collection: User.all, label_method: 'username', input_html: { multiple: true, data: { placeholder: 'Choose a user'}, class: 'chzn-select' } }) %>
-  </div>
 
-  <div class="update-details">
-    <%= f.submit "Update", :class => 'btn btn-lg btn-primary' %>
-  </div>
-
+    <div class="update-details">
+      <%= f.submit "Update", :class => 'btn btn-lg btn-primary' %>
+    </div>
 <% end %>
+  </div>
+
+
 
 <div class="row account-misc">
 
