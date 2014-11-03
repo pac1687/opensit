@@ -5,6 +5,8 @@
 
     <%= form_element(f, :default_sit_length, 'user', "Default sit length", 1, { label: false }) %>
 
+    <%= form_element(f, :privacy_setting, 'user', "Privacy setting", 3, { collection: [['Public', 0], ['People I follow', 'following'], ['Selected Users', 'selected_users'], ['Private', 'private']], as: :radio_buttons, item_wrapper_class: 'inline', label: false }) %>
+
     <%= form_element(f, :authorised_users, 'message', "To", 4, { label: false, collection: User.all, label_method: 'username', input_html: { multiple: true, data: { placeholder: 'Choose a user'}, class: 'chzn-select' } }) %>
 
     <div class="update-details">
