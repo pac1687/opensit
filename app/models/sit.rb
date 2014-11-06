@@ -147,7 +147,7 @@ class Sit < ActiveRecord::Base
         return true if current_user && (user.followed_user_ids.include? current_user.id)
         return false
       elsif user.privacy_setting == 'selected_users'
-        return true if current_user && (user.authorised_users.include? current_user.id)
+        return true if current_user && (user.authorised_users.include? current_user.id.to_s)
         return false
       end
     else
