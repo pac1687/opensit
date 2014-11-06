@@ -140,20 +140,30 @@ class Sit < ActiveRecord::Base
   ##
 
   def viewable?(current_user)
+    # User can always view their own content, regardless of settings
     return true if current_user && mine?(current_user)
 
+    # Private sit - everyone buzz off
+    return false if private
+
+    # Check account wide privacy settings
     if !user.privacy_setting.blank?
-      if user.privacy_setting == 'following'
+      # TODO: migrate all private_stream = true
+      # to privacy_setting == 'private'
+      if privacy_setting == 'private'
+        return false
+
+      # Only display to my followers
+      elsif user.privacy_setting == 'following'
         return true if current_user && (user.followed_user_ids.include? current_user.id)
         return false
+
+      # Only display to selected users
       elsif user.privacy_setting == 'selected_users'
         return true if current_user && (user.authorised_users.include? current_user.id.to_s)
         return false
       end
     else
-      # For completely private sits (individual or as part of private journal)
-      return false if private
-
       # Ok, let em through
       return true
     end
