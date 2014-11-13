@@ -325,7 +325,7 @@
   margin: 25px 0 0 0;
 }
 
-// Edit Profile / Account settings
+// Edit Profile / Account settings shared
 .account-settings,
 .edit-profile {
 	.update-details {
@@ -341,8 +341,31 @@
 	}
 }
 
-// Account settings
+// Account Settings
 .account-settings {
+	.user_privacy_setting {
+		margin-left: 0;
+		label.radio {
+			margin-bottom: 10px;
+			input[type="radio"] {
+				margin-right: 12px;
+			}
+			div {
+				font-size: 0.7em;
+				font-weight: normal;
+				margin-left: 10px;
+			}
+		}
+	}
+	.privacy-setting .warning {
+		margin-top: 10px;
+		font-size: 0.9em;
+		color: $dark-grey;
+	}
+}
+
+// Edit profile
+.edit-profile {
 	#user_avatar {
 		margin-top: 10px;
 	}
@@ -373,11 +396,6 @@
 		.wysihtml5-toolbar {
 			display: none;
 		}
-	}
-	.privacy-setting .warning {
-		margin-top: 10px;
-		font-size: 0.9em;
-		color: $dark-grey;
 	}
 }
 
