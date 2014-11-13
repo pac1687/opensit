@@ -325,6 +325,22 @@
   margin: 25px 0 0 0;
 }
 
+// Edit Profile / Account settings
+.account-settings,
+.edit-profile {
+	.update-details {
+		float: left;
+		width: 100%;
+		text-align: center;
+		margin: 20px 0;
+		.btn-large {
+			margin: 0 auto;
+			float: none;
+			clear: left;
+		}
+	}
+}
+
 // Account settings
 .account-settings {
 	#user_avatar {
@@ -339,17 +355,6 @@
 		}
 		input {
 			margin: 20px 0 0 90px;
-		}
-	}
-	.update-details {
-		float: left;
-		width: 100%;
-		text-align: center;
-		margin: 20px 0;
-		.btn-large {
-			margin: 0 auto;
-			float: none;
-			clear: left;
 		}
 	}
 	.contemplative-profile {
