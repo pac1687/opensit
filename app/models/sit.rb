@@ -147,7 +147,7 @@ class Sit < ActiveRecord::Base
     return false if private
 
     # Check account wide privacy settings
-    if privacy_setting == 'private'
+    if user.private_journal?
       return false
 
     # Only display to my followers

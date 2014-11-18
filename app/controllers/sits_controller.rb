@@ -52,7 +52,7 @@ class SitsController < ApplicationController
     @user = current_user
     @sit = @user.sits.new(params[:sit])
 
-    @sit.private = true if @user.private_stream
+    @sit.private = true if @user.private_journal?
     @sit.created_at = DateTime.strptime(params[:custom_date], "%m/%d/%Y %l:%M %p") if params[:custom_date] != ''
 
     if @sit.save

@@ -43,21 +43,7 @@
   </div>
 
   <div class="col-md-4 privacy-setting">
-    <h1>Privacy</h1>
 
-    <p>Your journal is <%= @user.private_stream ? 'private' : 'public' %>.</p>
-
-      <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put , :class => 'form-horizontal'}) do |f| %>
-        <% if @user.private_stream %>
-          <%= f.submit "Make it public", :class => 'btn btn-default' %>
-          <p class="warning">This will make <em>all</em> of your journal public! If there are any entries you wish to remain private, you will have to manually change their privacy settings afterwards.</p>
-          <%= f.input :private_stream, :as => :hidden, :input_html => { :value => "false" } %>
-        <% else %>
-          <%= f.submit "Make it private", :class => 'btn btn-default' %>
-          <p class="warning">This will make your journal private, meaning only you can see it. You can change this back to public at any time, but when you do <em>all</em> of your content will be marked as public.</p>
-          <%= f.input :private_stream, :as => :hidden, :input_html => { :value => "true" } %>
-        <% end %>
-      <% end %>
   </div>
 
 </div>

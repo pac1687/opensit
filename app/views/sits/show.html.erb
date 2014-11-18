@@ -39,7 +39,7 @@
       </div>
     </header>
 
-    <% if @sit.user.private_stream %>
+    <% if @sit.user.private_journal? %>
       <div class="private-warning">
         <span class="label label-primary"><i class="fa fa-lock"></i> Your stream is private.</span>
       </div>

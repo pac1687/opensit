@@ -9,7 +9,7 @@
   <% end %>
 
   <%# Is this someone elses private journal? %>
-  <% if @user.private_stream && (current_user != @user) %>
+  <% if @user.private_journal? && (current_user != @user) %>
     <div class="message-box">
       <h2>Private.</h2>
       <p>This is a private journal.</p>

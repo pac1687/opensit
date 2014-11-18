@@ -3,9 +3,9 @@ require 'textacular/searchable'
 class User < ActiveRecord::Base
   attr_accessible :city, :country, :website, :default_sit_length, :dob,
                   :password, :email, :first_name, :gender, :last_name,
-                  :practice, :private_diary, :style, :user_type, :username,
+                  :practice, :style, :user_type, :username,
                   :who, :why, :password_confirmation, :remember_me, :avatar,
-                  :private_stream, :authorised_users, :privacy_setting
+                  :authorised_users, :privacy_setting
 
   has_many :sits, :dependent => :destroy
   has_many :messages_received, -> { where receiver_deleted: false }, class_name: 'Message', foreign_key: 'to_user_id'
@@ -243,6 +243,11 @@ class User < ActiveRecord::Base
     Sit.from_users_followed_by(self).with_body.newest_first
   end
 
+  def private_journal?
+    return true if privacy_setting == 'private'
+    return false
+  end
+
   def private_stream=(value)
     unless value.downcase == 'true' || value.downcase == 'false'
       raise ArgumentError, "Argument must be either 'true' or 'false'"
@@ -363,7 +368,7 @@ class User < ActiveRecord::Base
   end
 
   def self.active_users
-    User.all.where(private_stream: false).order('sits_count DESC')
+    User.all.where.not(privacy_setting: 'private').order('sits_count DESC')
   end
 
   ##
@@ -389,6 +394,7 @@ end
 # Table name: users
 #
 #  authentication_token   :string(255)
+#  authorised_users       :string(255)      default("")
 #  avatar_content_type    :string(255)
 #  avatar_file_name       :string(255)
 #  avatar_file_size       :integer
@@ -415,6 +421,7 @@ end
 #  locked_at              :datetime
 #  password_salt          :string(255)
 #  practice               :text
+#  privacy_setting        :string(255)      default("")
 #  private_diary          :boolean
 #  private_stream         :boolean          default(FALSE)
 #  remember_created_at    :datetime

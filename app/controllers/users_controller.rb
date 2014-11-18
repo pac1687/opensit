@@ -70,7 +70,7 @@ class UsersController < ApplicationController
 
     # Viewing someone elses profile
     else
-      if !@user.private_stream
+      if !@user.private_journal?
         @sits = @user.sits_by_month(month: month, year: year).public.newest_first
         @stats = @user.get_monthly_stats(month, year)
       end
