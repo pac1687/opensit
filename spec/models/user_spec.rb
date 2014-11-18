@@ -68,6 +68,10 @@ describe User do
       nagz = create :user, username: 'nagarjuna'
       expect(nagz.following?(opensit)).to be(true)
     end
+
+    it 'public journal by default' do
+      expect(buddha.privacy_setting).to eq 'public'
+    end
   end
 
   describe "validations" do

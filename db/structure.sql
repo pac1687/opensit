@@ -519,7 +519,6 @@ CREATE TABLE users (
     why text,
     style character varying(100),
     practice text,
-    private_diary boolean,
     default_sit_length integer DEFAULT 30,
     user_type integer,
     created_at timestamp without time zone NOT NULL,
@@ -546,11 +545,10 @@ CREATE TABLE users (
     avatar_content_type character varying(255),
     avatar_file_size integer,
     avatar_updated_at timestamp without time zone,
-    private_stream boolean DEFAULT false,
     reset_password_sent_at timestamp without time zone,
     sits_count integer DEFAULT 0,
     streak integer DEFAULT 0,
-    privacy_setting character varying(255) DEFAULT ''::character varying,
+    privacy_setting character varying(255) DEFAULT 'public'::character varying,
     authorised_users character varying(255) DEFAULT ''::character varying
 );
 

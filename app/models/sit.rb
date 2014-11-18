@@ -147,24 +147,21 @@ class Sit < ActiveRecord::Base
     return false if private
 
     # Check account wide privacy settings
-    if !user.privacy_setting.blank?
-      # TODO: migrate all private_stream = true
-      # to privacy_setting == 'private'
-      if privacy_setting == 'private'
-        return false
+    if privacy_setting == 'private'
+      return false
 
-      # Only display to my followers
-      elsif user.privacy_setting == 'following'
-        return true if current_user && (user.followed_user_ids.include? current_user.id)
-        return false
+    # Only display to my followers
+    elsif user.privacy_setting == 'following'
+      return true if current_user && (user.followed_user_ids.include? current_user.id)
+      return false
 
-      # Only display to selected users
-      elsif user.privacy_setting == 'selected_users'
-        return true if current_user && (user.authorised_users.include? current_user.id.to_s)
-        return false
-      end
-    else
-      # Ok, let em through
+    # Only display to selected users
+    elsif user.privacy_setting == 'selected_users'
+      return true if current_user && (user.authorised_users.include? current_user.id.to_s)
+      return false
+
+    # Public
+    elsif user.privacy_setting == 'public'
       return true
     end
   end
