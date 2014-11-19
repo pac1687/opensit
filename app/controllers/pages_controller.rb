@@ -3,7 +3,7 @@ class PagesController < ApplicationController
     if user_signed_in?
       redirect_to controller: :users, action: :me
     else
-      @sits = Sit.public.with_body.newest_first.limit(30)
+      @sits = Sit.with_body.newest_first.limit(30)
       @page_class = 'front-page'
 
       render 'front', layout: 'minimal'
@@ -27,7 +27,7 @@ class PagesController < ApplicationController
 
   def explore
     @user = current_user
-    @sits = Sit.public.newest_first.with_body.limit(20).paginate(:page => params[:page])
+    @sits = Sit.newest_first.with_body.limit(20).paginate(:page => params[:page])
 
     @title = 'Explore'
     @page_class = 'explore'
@@ -46,7 +46,6 @@ class PagesController < ApplicationController
   end
 
   def online_users
-
   end
 
   def new_comments

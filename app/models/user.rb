@@ -52,7 +52,6 @@ class User < ActiveRecord::Base
 
   # Scopes
   scope :newest_first, -> { order("created_at DESC") }
-  scope :public, -> { where(private: false) }
 
   # Used by url_helper to determine user path, eg; /buddha and /user/buddha
   def to_param
@@ -89,8 +88,13 @@ class User < ActiveRecord::Base
   ##
 
   def latest_sit(current_user)
-    return sits.newest_first.limit(1) if self == current_user
-    return sits.public.newest_first.limit(1)
+    if self == current_user
+      Sit.unscoped do
+        return sits.newest_first.limit(1)
+      end
+    else
+      return sits.newest_first.limit(1)
+    end
   end
 
   def sits_by_year(year)

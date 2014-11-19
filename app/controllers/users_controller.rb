@@ -65,13 +65,15 @@ class UsersController < ApplicationController
 
     # Viewing your own profile
     if current_user == @user
-      @sits = @user.sits_by_month(month: month, year: year).newest_first
+      Sit.unscoped do
+        @sits = @user.sits_by_month(month: month, year: year).newest_first
+      end
       @stats = @user.get_monthly_stats(month, year)
 
     # Viewing someone elses profile
     else
       if !@user.private_journal?
-        @sits = @user.sits_by_month(month: month, year: year).public.newest_first
+        @sits = @user.sits_by_month(month: month, year: year).newest_first
         @stats = @user.get_monthly_stats(month, year)
       end
     end
@@ -113,34 +115,20 @@ class UsersController < ApplicationController
     render 'show_follow'
   end
 
-  # Generate atom feed for user or all public content (global)
-  def feed
-    if params[:scope] == 'global'
-      @sits = Sit.public.newest_first.limit(50)
-      @title = "Global SitStream | OpenSit"
-    else
-      @user = User.where("lower(username) = lower(?)", params[:username]).first!
-      @title = "SitStream for #{@user.username}"
-      @sits = @user.sits.public.newest_first.limit(20)
-    end
-
-    # This is the feed's update timestamp
-    @updated = @sits.last.updated_at unless @sits.empty?
-
-    respond_to do |format|
-      format.atom
-    end
-  end
-
   # GET /u/buddha/export
   def export
     @user = User.where("lower(username) = lower(?)", params[:username]).first!
-    @sits = Sit.where(:user_id => @user.id)
 
-    respond_to do |format|
-      format.html
-      format.json { render json: @sits }
-      format.xml { render xml: @sits }
+    if @user == current_user
+      @sits = @user.sits.newest_first.with_body
+
+      respond_to do |format|
+        format.html
+        format.json { render json: @sits }
+        format.xml { render xml: @sits }
+      end
+    else
+      render json: 'Not Authorised'
     end
   end
 

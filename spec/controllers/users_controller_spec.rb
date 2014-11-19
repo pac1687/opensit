@@ -33,33 +33,6 @@ describe UsersController, :type => :controller do
     end
 
     context 'date specified' do
-      # context 'year' do
-      #   it 'loads sits from that year' do
-      #     create :sit, user: @buddha, created_at: Date.today
-      #     create :sit, user: @buddha, created_at: Date.today - 365
-      #     expect(@buddha.sits.count).to eq 2
-
-      #     get :show, username: 'buddha', year: Date.today.year
-      #     expect(assigns(:sits)).to have(1).items
-      #     expect(assigns(:sits)).to eq(@buddha.sits_by_year(Date.today.year).public.newest_first)
-      #     expect(response).to render_template("users/show")
-      #   end
-
-      #   context 'invalid year' do
-      #     it 'over 3000' do
-      #       get :show, username: 'buddha', year: '3001'
-      #       expect(response).to redirect_to("/u/buddha")
-      #       expect(flash[:error]).to eq('Invalid year!')
-      #     end
-
-      #     it 'non-numerical' do
-      #       get :show, username: 'buddha', year: 'non-numerical'
-      #       expect(response).to redirect_to("/u/buddha")
-      #       expect(flash[:error]).to eq('Invalid year!')
-      #     end
-      #   end
-      # end
-
       context 'month' do
         it 'loads sits from that month' do
           create :sit, user: @buddha, created_at: Date.today
@@ -68,7 +41,7 @@ describe UsersController, :type => :controller do
 
           get :show, username: 'buddha', year: Date.today.year, month: Date.today.month
           expect(assigns(:sits)).to have(1).items
-          expect(assigns(:sits)).to eq(@buddha.sits_by_month(year: Date.today.year, month: Date.today.month).public.newest_first)
+          expect(assigns(:sits)).to eq(@buddha.sits_by_month(year: Date.today.year, month: Date.today.month).newest_first)
           expect(response).to render_template("users/show")
         end
 

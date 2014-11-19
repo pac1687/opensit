@@ -38,7 +38,7 @@
     <p>Warning: danger zone.</p>
     <ul>
       <li><a href="#">Change my email address</a></li>
-      <li>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %>.</li>
+      <li>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "WARNING!! This will delete your account and all of your journal entries. Are you sure?" }, :method => :delete %>.</li>
     </ul>
   </div>
 

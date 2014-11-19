@@ -6,7 +6,7 @@
   <% end %>
 
   <%= if controller.action_name == 'edit'
-    link_to 'Delete', sit_path(@sit), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-danger delete-entry pull-right'
+    link_to 'Delete', sit_path(@sit), :method => :delete, :confirm => 'Are you sure you want to delete this entry?', :class => 'btn btn-danger delete-entry pull-right'
     end %>
 
   <% if !current_user.private_journal? %>
